@@ -1,0 +1,55 @@
+#######################################
+# Syntax Coloring Map For Seeed OLED
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+addressingMode                  KEYWORD1
+ACROBOTIC_SSD1306               KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+init                            KEYWORD1
+setNormalDisplay                KEYWORD1
+setInverseDisplay               KEYWORD1
+sendCommand                     KEYWORD1
+setPageMode                     KEYWORD1
+setHorizontalMode               KEYWORD1
+setTextXY                       KEYWORD1
+clearDisplay                    KEYWORD1
+setBrightness                   KEYWORD1
+putChar                         KEYWORD1
+putString                       KEYWORD1
+putNumber                       KEYWORD1
+putFloat                        KEYWORD1
+drawBitmap                      KEYWORD1
+chipErase                       KEYWORD1
+setHorizontalScrollProperties   KEYWORD1
+activateScroll                  KEYWORD1
+deactivateScroll                KEYWORD1
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+Scroll_Left                     LITERAL1
+Scroll_Right                    LITERAL1
+Scroll_2Frames                  LITERAL1
+Scroll_3Frames                  LITERAL1
+Scroll_4Frames                  LITERAL1
+Scroll_5Frames                  LITERAL1
+Scroll_25Frames                 LITERAL1
+Scroll_64Frames                 LITERAL1
+Scroll_128Frames                LITERAL1
+Scroll_256Frames                LITERAL1
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+ACROBOTIC_SSD1306               KEYWORD2
