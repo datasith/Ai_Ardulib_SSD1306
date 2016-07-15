@@ -18,6 +18,14 @@
   information.  All text above must be included in any redistribution. 
 */
 
+#ifdef __AVR__
+  #include <avr/pgmspace.h>
+#elif defined(ESP8266)
+ #include <pgmspace.h>
+#else
+ #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+#endif
+
 #include "Wire.h"
 #include "ACROBOTIC_SSD1306.h"
 #include "fonts/font8x8.h"

@@ -18,10 +18,14 @@
   information.  All text above must be included in any redistribution. 
 */
 
-#ifndef ACROBOTIC_SSD1306_h
-#define ACROBOTIC_SSD1306_h
+#ifndef ACROBOTIC_SSD1306_H
+#define ACROBOTIC_SSD1306_H
 
-// ACROBOTIC_SSD1306 Instruction set addresses
+#if ARDUINO >= 100
+ #include "Arduino.h"
+#else
+ #include "WProgram.h"
+#endif
 
 #include "Wire.h"
 

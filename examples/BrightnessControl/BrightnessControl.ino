@@ -3,10 +3,10 @@
   Author: Makerbro
   Platforms: ESP8266
   Language: C++
-  File: SSD1306_Brightness.ino
+  File: BrightnessControl.ino
   ------------------------------------------------------------------------
   Description: 
-  Bightness control example for OLED display.
+  Brightness control example for OLED display.
   ------------------------------------------------------------------------
   Please consider buying products from ACROBOTIC to help fund future
   Open-Source projects like this! We'll always put our best effort in every
