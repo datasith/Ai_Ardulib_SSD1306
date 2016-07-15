@@ -3,10 +3,10 @@
   Author: Makerbro
   Platforms: ESP8266
   Language: C++
-  File: HelloWorld.ino
+  File: HelloOLED.ino
   ------------------------------------------------------------------------
   Description: 
-  Demo for OLED display -- writing a string.
+  Demo for OLED display showcasing writing of strings.
   ------------------------------------------------------------------------
   Please consider buying products from ACROBOTIC to help fund future
   Open-Source projects like this! We'll always put our best effort in every
@@ -25,10 +25,14 @@ void setup()
   Wire.begin();	
   oled.init();                      // Initialze SSD1306 OLED display
   oled.clearDisplay();              // Clear screen
-  oled.setTextXY(0,1);              // Set cursor position
-  oled.putString("   ACROBOTIC   ");
-  oled.setTextXY(0,2);              // Set cursor position
-  oled.putString("  industries   ");
+  oled.setTextXY(0,0);              // Set cursor position, start of line 0
+  oled.putString("ACROBOTIC");
+  oled.setTextXY(1,0);              // Set cursor position, start of line 1
+  oled.putString("industries");
+  oled.setTextXY(2,0);              // Set cursor position, start of line 2
+  oled.putString("Pasadena,");
+  oled.setTextXY(2,10);             // Set cursor position, line 2 10th character
+  oled.putString("CA");
 }
 
 void loop()
