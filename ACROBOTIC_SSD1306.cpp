@@ -18,17 +18,7 @@
   information.  All text above must be included in any redistribution. 
 */
 
-#ifdef __AVR__
-  #include <avr/pgmspace.h>
-#elif defined(ESP8266)
- #include <pgmspace.h>
-#else
- #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
-#endif
-
-#include "Wire.h"
 #include "ACROBOTIC_SSD1306.h"
-#include "fonts/font8x8.h"
 
 void ACROBOTIC_SSD1306::init(void)
 {
@@ -59,9 +49,16 @@ void ACROBOTIC_SSD1306::init(void)
   sendCommand(0xA4);            //DISPLAYALLON_RESUME        
   sendCommand(0xA6);            //NORMALDISPLAY             
   clearDisplay();
-  sendCommand(0x2E);            // stop scroll
+  sendCommand(0x2E);            //Stop scroll
   sendCommand(0x20);            //Set Memory Addressing Mode
   sendCommand(0x00);            //Set Memory Addressing Mode ab Horizontal addressing mode
+  setFont(font8x8);
+}
+
+void ACROBOTIC_SSD1306::setFont(const uint8_t* font)
+{
+  m_font = font;
+  m_font_width = pgm_read_byte(&m_font[0]);
 }
 
 void ACROBOTIC_SSD1306::sendCommand(unsigned char command)
@@ -125,28 +122,37 @@ void ACROBOTIC_SSD1306::sendData(unsigned char Data)
      Wire.endTransmission();                    // stop I2C transmission
 }
 
-void ACROBOTIC_SSD1306::putChar(unsigned char C)
+bool ACROBOTIC_SSD1306::putChar(unsigned char ch)
 {
-    if(C < 32 || C > 127) //Ignore non-printable ASCII characters. This can be modified for multilingual font.
+    if (!m_font) return 0;
+    //Ignore non-printable ASCII characters. This can be modified for
+    //multilingual font.  
+    if(ch < 32 || ch > 127) 
     {
-    C=' '; //Space
+        ch = ' ';
     }    
-    unsigned char i=0;
-    for(i=0;i<8;i++)
+    for(unsigned char i=0;i<m_font_width;i++)
     {
-       //read bytes from code memory
-       sendData(pgm_read_byte(&BasicFont[C-32][i])); //font array starts at 0, ASCII starts at 32. Hence the translation
+       // Font array starts at 0, ASCII starts at 32
+       sendData(pgm_read_byte(&m_font[(ch-32)*m_font_width+m_font_offset+i])); 
     }
 }
 
-void ACROBOTIC_SSD1306::putString(const char *String)
+void ACROBOTIC_SSD1306::putString(const char *string)
 {
     unsigned char i=0;
-    while(String[i])
+    while(string[i])
     {
-        putChar(String[i]);     
+        putChar(string[i]);     
         i++;
     }
+}
+
+void ACROBOTIC_SSD1306::putString(String string)
+{
+    char char_array[string.length()+1];
+    string.toCharArray(char_array, sizeof(char_array));
+    putString(char_array);
 }
 
 unsigned char ACROBOTIC_SSD1306::putNumber(long long_num)
@@ -281,33 +287,14 @@ void ACROBOTIC_SSD1306::drawBitmap(unsigned char *bitmaparray,int bytes)
 
 void ACROBOTIC_SSD1306::setHorizontalScrollProperties(bool direction,unsigned char startPage, unsigned char endPage, unsigned char scrollSpeed)
 {
-/*
-Use the following defines for 'direction' :
-
- Scroll_Left            
- Scroll_Right            
-
-Use the following defines for 'scrollSpeed' :
-
- Scroll_2Frames        
- Scroll_3Frames
- Scroll_4Frames
- Scroll_5Frames    
- Scroll_25Frames
- Scroll_64Frames
- Scroll_128Frames
- Scroll_256Frames
-
-*/
-
    if(Scroll_Right == direction)
    {
-        //Scroll Right
+        //Scroll right
         sendCommand(0x26);
    }
    else
    {
-        //Scroll Left  
+        //Scroll left  
         sendCommand(0x27);
 
    }
@@ -340,5 +327,4 @@ void ACROBOTIC_SSD1306::setInverseDisplay()
 }
 
 
-ACROBOTIC_SSD1306 oled;  // Preinstantiate Objects
-
+ACROBOTIC_SSD1306 oled;  // Pre-instantiate object
