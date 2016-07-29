@@ -3,10 +3,10 @@
   Author: Makerbro
   Platforms: ESP8266
   Language: C++
-  File: HelloOLED.ino
+  File: HelloString.ino
   ------------------------------------------------------------------------
   Description: 
-  Demo for OLED display showcasing writing of string types.
+  Demo for OLED displays showcasing writing string types.
   ------------------------------------------------------------------------
   Please consider buying products from ACROBOTIC to help fund future
   Open-Source projects like this! We'll always put our best effort in every

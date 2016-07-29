@@ -3,7 +3,7 @@
   Author: Makerbro
   Platforms: ESP8266
   Language: C++
-  File: BrightnessControl.ino
+  File: ControlBrightness.ino
   ------------------------------------------------------------------------
   Description: 
   Brightness control example for OLED display.

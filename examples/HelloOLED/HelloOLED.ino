@@ -6,7 +6,7 @@
   File: HelloOLED.ino
   ------------------------------------------------------------------------
   Description: 
-  Demo for OLED display showcasing writing of strings.
+  Demo for OLED display showcasing writing text to the screen.
   ------------------------------------------------------------------------
   Please consider buying products from ACROBOTIC to help fund future
   Open-Source projects like this! We'll always put our best effort in every

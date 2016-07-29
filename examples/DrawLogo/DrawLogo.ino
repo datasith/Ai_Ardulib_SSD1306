@@ -3,7 +3,7 @@
   Author: Makerbro
   Platforms: ESP8266
   Language: C++
-  File: BrightnessControl.ino
+  File: DrawLogo.ino
   ------------------------------------------------------------------------
   Description: 
   Drawing an image in the OLED display. The image date was generated using a 
