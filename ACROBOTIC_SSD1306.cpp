@@ -89,11 +89,11 @@ void ACROBOTIC_SSD1306::setPageMode()
     sendCommand(0x02);                      //set page addressing mode
 }
 
-void ACROBOTIC_SSD1306::setTextXY(unsigned char Row, unsigned char Column)
+void ACROBOTIC_SSD1306::setTextXY(unsigned char row, unsigned char col)
 {
-    sendCommand(0xB0 + Row);                    //set page address
-    sendCommand(0x00 + (8*Column & 0x0F));      //set column lower address
-    sendCommand(0x10 + ((8*Column>>4)&0x0F));   //set column higher address
+    sendCommand(0xB0 + row);                          //set page address
+    sendCommand(0x00 + (m_font_width*col & 0x0F));    //set column lower addr
+    sendCommand(0x10 + ((m_font_width*col>>4)&0x0F)); //set column higher addr
 }
 
 void ACROBOTIC_SSD1306::clearDisplay()
