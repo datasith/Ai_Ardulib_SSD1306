@@ -106,7 +106,7 @@ void loop()
   oled.setTextXY(7,13);
   oled.putNumber(brightness);       
   delay(500);
-  if(Brightness == 255)
+  if(brightness == 255)
   {
     oled.setTextXY(7,13);           // Display the brighness value starting from 7th Row, 13th Column
     oled.putString("   ");          // Clear 13,14 and 15th Columns. Numbers left aligned.
