@@ -136,6 +136,7 @@ bool ACROBOTIC_SSD1306::putChar(unsigned char ch)
        // Font array starts at 0, ASCII starts at 32
        sendData(pgm_read_byte(&m_font[(ch-32)*m_font_width+m_font_offset+i])); 
     }
+    return 1;
 }
 
 void ACROBOTIC_SSD1306::putString(const char *string)
