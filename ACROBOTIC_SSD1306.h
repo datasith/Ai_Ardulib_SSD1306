@@ -29,7 +29,7 @@
 
 #ifdef __AVR__
   #include <avr/pgmspace.h>
-  #define OLEDFONT(name) static const uint8_t __attribute__ ((progmem))_n[]
+  #define OLEDFONT(name) static const uint8_t __attribute__ ((progmem)) name[]
 #elif defined(ESP8266)
   #include <pgmspace.h>
   #define OLEDFONT(name) static const uint8_t name[]
