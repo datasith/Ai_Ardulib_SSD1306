@@ -42,8 +42,21 @@
 #include "fonts/font8x8.h"
 #include "fonts/font5x7.h"
 
-#define SSD1306_Max_X                 127    //128 Pixels
-#define SSD1306_Max_Y                 63     //64  Pixels
+// Default screen size is 128x64. Using a #define in your sketch before
+// the #include statement can change the default size.
+
+#if !defined SSD1306_128_64 && !defined SSD1306_128_32
+  #define SSD1306_128_64
+#endif
+
+#if defined SSD1306_128_64
+  #define SSD1306_Max_X                 127
+  #define SSD1306_Max_Y                 63
+#endif
+#if defined SSD1306_128_32
+  #define SSD1306_Max_X                 127
+  #define SSD1306_Max_Y                 31
+#endif
 
 #define PAGE_MODE                     01
 #define HORIZONTAL_MODE               02
