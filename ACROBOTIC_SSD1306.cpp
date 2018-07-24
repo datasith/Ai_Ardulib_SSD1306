@@ -28,7 +28,7 @@ void ACROBOTIC_SSD1306::init(void)
   sendCommand(0xD5);            //SETDISPLAYCLOCKDIV
   sendCommand(0x80);            // the suggested ratio 0x80
   sendCommand(0xA8);            //SSD1306_SETMULTIPLEX
-  sendCommand(0x3F);
+  sendCommand(SSD1306_Max_Y);
   sendCommand(0xD3);            //SETDISPLAYOFFSET
   sendCommand(0x0);             //no offset
   sendCommand(0x40|0x0);        //SETSTARTLINE
