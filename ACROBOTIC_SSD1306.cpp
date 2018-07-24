@@ -55,9 +55,10 @@ void ACROBOTIC_SSD1306::init(void)
   setFont(font8x8);
 }
 
-void ACROBOTIC_SSD1306::setFont(const uint8_t* font)
+void ACROBOTIC_SSD1306::setFont(const uint8_t* font, bool inverse=false)
 {
   m_font = font;
+  m_inverse=inverse;
   m_font_width = pgm_read_byte(&m_font[0]);
 }
 
@@ -118,7 +119,7 @@ void ACROBOTIC_SSD1306::sendData(unsigned char Data)
 {
      Wire.beginTransmission(SSD1306_Address); // begin I2C transmission
      Wire.write(SSD1306_Data_Mode);            // data mode
-     Wire.write(Data);
+     Wire.write(m_inverse?~Data:Data);
      Wire.endTransmission();                    // stop I2C transmission
 }
 

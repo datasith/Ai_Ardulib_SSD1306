@@ -104,7 +104,7 @@ class ACROBOTIC_SSD1306 {
     void activateScroll();
     void deactivateScroll();
 
-    void setFont(const uint8_t* font);
+    void setFont(const uint8_t* font, bool inverse=false);
 
   private:
     const uint8_t* m_font;      // Current font.
@@ -112,6 +112,7 @@ class ACROBOTIC_SSD1306 {
     uint8_t m_font_width;       // Font witdth.
     uint8_t m_col;              // Cursor column.
     uint8_t m_row;              // Cursor row (RAM). 
+    bool m_inverse=false;       // Inverse text.
 };
 
 extern ACROBOTIC_SSD1306 oled;  // ACROBOTIC_SSD1306 object 
