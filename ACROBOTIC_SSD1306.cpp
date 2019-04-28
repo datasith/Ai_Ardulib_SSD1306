@@ -55,7 +55,7 @@ void ACROBOTIC_SSD1306::init(void)
   setFont(font8x8);
 }
 
-void ACROBOTIC_SSD1306::setFont(const uint8_t* font, bool inverse=false)
+void ACROBOTIC_SSD1306::setFont(const uint8_t* font, bool inverse)
 {
   m_font = font;
   m_inverse=inverse;

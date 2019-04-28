@@ -18,7 +18,7 @@
   information.  All text above must be included in any redistribution. 
 */
 #include <Wire.h>
-#include <ACROBOTIC_SSD1306.h>
+#include "src/ACROBOTIC_SSD1306.h"
 
 void setup()
 {
