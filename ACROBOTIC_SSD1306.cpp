@@ -22,7 +22,7 @@
 
 void ACROBOTIC_SSD1306::init(TwoWire& wire)
 {
-  m_wire = wire;
+  m_wire = &wire;
   sendCommand(0xAE);            //display off
   sendCommand(0xA6);            //Set Normal Display (default)
   sendCommand(0xAE);            //DISPLAYOFF
@@ -65,10 +65,10 @@ void ACROBOTIC_SSD1306::setFont(const uint8_t* font, bool inverse)
 
 void ACROBOTIC_SSD1306::sendCommand(unsigned char command)
 {
-  m_wire.beginTransmission(SSD1306_Address);    // begin I2C communication
-  m_wire.write(SSD1306_Command_Mode);           // Set OLED Command mode
-  m_wire.write(command);
-  m_wire.endTransmission();                       // End I2C communication
+  m_wire->beginTransmission(SSD1306_Address);    // begin I2C communication
+  m_wire->write(SSD1306_Command_Mode);           // Set OLED Command mode
+  m_wire->write(command);
+  m_wire->endTransmission();                       // End I2C communication
 }
 
 void ACROBOTIC_SSD1306::setBrightness(unsigned char Brightness)
