@@ -126,7 +126,7 @@ class ACROBOTIC_SSD1306 {
     uint8_t m_col;              // Cursor column.
     uint8_t m_row;              // Cursor row (RAM).
     bool m_inverse=false;       // Inverse text.
-    const TwoWire* m_wire;
+    TwoWire* m_wire;
 };
 
 extern ACROBOTIC_SSD1306 oled;  // ACROBOTIC_SSD1306 object

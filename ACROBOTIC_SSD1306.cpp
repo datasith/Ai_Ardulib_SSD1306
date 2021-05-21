@@ -118,10 +118,10 @@ void ACROBOTIC_SSD1306::clearDisplay()
 
 void ACROBOTIC_SSD1306::sendData(unsigned char Data)
 {
-     Wire.beginTransmission(SSD1306_Address); // begin I2C transmission
-     Wire.write(SSD1306_Data_Mode);            // data mode
-     Wire.write(m_inverse?~Data:Data);
-     Wire.endTransmission();                    // stop I2C transmission
+     m_wire->beginTransmission(SSD1306_Address); // begin I2C transmission
+     m_wire->write(SSD1306_Data_Mode);            // data mode
+     m_wire->write(m_inverse?~Data:Data);
+     m_wire->endTransmission();                    // stop I2C transmission
 }
 
 bool ACROBOTIC_SSD1306::putChar(unsigned char ch)
