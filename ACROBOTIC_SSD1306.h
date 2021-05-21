@@ -5,17 +5,17 @@
   Language: C++
   File: ACROBOTIC_SSD1306.h
   ------------------------------------------------------------------------
-  Description: 
+  Description:
   SSD1306 OLED Driver Library.
   ------------------------------------------------------------------------
   Please consider buying products from ACROBOTIC to help fund future
   Open-Source projects like this! We'll always put our best effort in every
-  project, and release all our design files and code for you to use. 
+  project, and release all our design files and code for you to use.
   https://acrobotic.com/
   ------------------------------------------------------------------------
   License:
   Released under the MIT license. Please check LICENSE.txt for more
-  information.  All text above must be included in any redistribution. 
+  information.  All text above must be included in any redistribution.
 */
 
 #ifndef ACROBOTIC_SSD1306_H
@@ -87,7 +87,7 @@
 class ACROBOTIC_SSD1306 {
   public:
     char addressingMode;
-    void init(void);
+    void init(TwoWire& wire);
 
     void setNormalDisplay();
     void setInverseDisplay();
@@ -111,8 +111,8 @@ class ACROBOTIC_SSD1306 {
 
     void setHorizontalScrollProperties(
         bool direction,
-        unsigned char startPage, 
-        unsigned char endPage, 
+        unsigned char startPage,
+        unsigned char endPage,
         unsigned char scrollSpeed);
     void activateScroll();
     void deactivateScroll();
@@ -124,10 +124,11 @@ class ACROBOTIC_SSD1306 {
     uint8_t m_font_offset = 2;  // Font bytes for meta data.
     uint8_t m_font_width;       // Font witdth.
     uint8_t m_col;              // Cursor column.
-    uint8_t m_row;              // Cursor row (RAM). 
+    uint8_t m_row;              // Cursor row (RAM).
     bool m_inverse=false;       // Inverse text.
+    TwoWire& m_wire;
 };
 
-extern ACROBOTIC_SSD1306 oled;  // ACROBOTIC_SSD1306 object 
+extern ACROBOTIC_SSD1306 oled;  // ACROBOTIC_SSD1306 object
 
 #endif
