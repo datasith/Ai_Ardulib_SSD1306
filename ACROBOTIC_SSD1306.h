@@ -87,7 +87,7 @@
 class ACROBOTIC_SSD1306 {
   public:
     char addressingMode;
-    void init(TwoWire& wire);
+    void init(TwoWire& wire=Wire);
 
     void setNormalDisplay();
     void setInverseDisplay();
