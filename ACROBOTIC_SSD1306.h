@@ -117,6 +117,9 @@ class ACROBOTIC_SSD1306 {
     void activateScroll();
     void deactivateScroll();
 
+    void displayOn();
+    void displayOff();
+
     void setFont(const uint8_t* font, bool inverse=false);
 
   private:

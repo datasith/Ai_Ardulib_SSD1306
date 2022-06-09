@@ -23,9 +23,9 @@
 void ACROBOTIC_SSD1306::init(TwoWire& wire)
 {
   m_wire = &wire;
-  sendCommand(0xAE);            //display off
+  displayOff();                 //display off
   sendCommand(0xA6);            //Set Normal Display (default)
-  sendCommand(0xAE);            //DISPLAYOFF
+  displayOff();                 //display off
   sendCommand(0xD5);            //SETDISPLAYCLOCKDIV
   sendCommand(0x80);            // the suggested ratio 0x80
   sendCommand(0xA8);            //SSD1306_SETMULTIPLEX
@@ -54,6 +54,16 @@ void ACROBOTIC_SSD1306::init(TwoWire& wire)
   sendCommand(0x20);            //Set Memory Addressing Mode
   sendCommand(0x00);            //Set Memory Addressing Mode ab Horizontal addressing mode
   setFont(font8x8);
+}
+
+void ACROBOTIC_SSD1306::displayOn()
+{
+    sendCommand(0xAF);
+}
+
+void ACROBOTIC_SSD1306::displayOff()
+{
+    sendCommand(0xAE);
 }
 
 void ACROBOTIC_SSD1306::setFont(const uint8_t* font, bool inverse)
