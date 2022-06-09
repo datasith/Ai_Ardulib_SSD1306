@@ -5,26 +5,26 @@
   Language: C++
   File: ACROBOTIC_SSD1306.cpp
   ------------------------------------------------------------------------
-  Description: 
+  Description:
   SSD1306 OLED Driver Library.
   ------------------------------------------------------------------------
   Please consider buying products from ACROBOTIC to help fund future
   Open-Source projects like this! We'll always put our best effort in every
-  project, and release all our design files and code for you to use. 
+  project, and release all our design files and code for you to use.
   https://acrobotic.com/
   ------------------------------------------------------------------------
   License:
   Released under the MIT license. Please check LICENSE.txt for more
-  information.  All text above must be included in any redistribution. 
+  information.  All text above must be included in any redistribution.
 */
 
 #include "ACROBOTIC_SSD1306.h"
 
 void ACROBOTIC_SSD1306::init(void)
 {
-  sendCommand(0xAE);            //display off
+  displayOff();                 //display off
   sendCommand(0xA6);            //Set Normal Display (default)
-  sendCommand(0xAE);            //DISPLAYOFF
+  displayOff();                 //DISPLAYOFF
   sendCommand(0xD5);            //SETDISPLAYCLOCKDIV
   sendCommand(0x80);            // the suggested ratio 0x80
   sendCommand(0xA8);            //SSD1306_SETMULTIPLEX
@@ -42,17 +42,27 @@ void ACROBOTIC_SSD1306::init(void)
   sendCommand(0x12);            //COMSCANDEC
   sendCommand(0x81);            //SETCONTRAST
   sendCommand(0xCF);            //
-  sendCommand(0xd9);            //SETPRECHARGE 
-  sendCommand(0xF1); 
-  sendCommand(0xDB);            //SETVCOMDETECT                
+  sendCommand(0xd9);            //SETPRECHARGE
+  sendCommand(0xF1);
+  sendCommand(0xDB);            //SETVCOMDETECT
   sendCommand(0x40);
-  sendCommand(0xA4);            //DISPLAYALLON_RESUME        
-  sendCommand(0xA6);            //NORMALDISPLAY             
+  sendCommand(0xA4);            //DISPLAYALLON_RESUME
+  sendCommand(0xA6);            //NORMALDISPLAY
   clearDisplay();
   sendCommand(0x2E);            //Stop scroll
   sendCommand(0x20);            //Set Memory Addressing Mode
   sendCommand(0x00);            //Set Memory Addressing Mode ab Horizontal addressing mode
   setFont(font8x8);
+}
+
+void ACROBOTIC_SSD1306::displayOn()
+{
+    sendCommand(0xAF);
+}
+
+void ACROBOTIC_SSD1306::displayOff()
+{
+    sendCommand(0xAE);
 }
 
 void ACROBOTIC_SSD1306::setFont(const uint8_t* font, bool inverse)
@@ -102,17 +112,17 @@ void ACROBOTIC_SSD1306::clearDisplay()
   unsigned char i,j;
   sendCommand(SSD1306_Display_Off_Cmd);     //display off
   for(j=0;j<8;j++)
-  {    
-    setTextXY(j,0);    
+  {
+    setTextXY(j,0);
     {
       for(i=0;i<16;i++)  //clear all columns
       {
-        putChar(' ');    
+        putChar(' ');
       }
     }
   }
   sendCommand(SSD1306_Display_On_Cmd);     //display on
-  setTextXY(0,0);    
+  setTextXY(0,0);
 }
 
 void ACROBOTIC_SSD1306::sendData(unsigned char Data)
@@ -127,15 +137,15 @@ bool ACROBOTIC_SSD1306::putChar(unsigned char ch)
 {
     if (!m_font) return 0;
     //Ignore non-printable ASCII characters. This can be modified for
-    //multilingual font.  
-    if(ch < 32 || ch > 127) 
+    //multilingual font.
+    if(ch < 32 || ch > 127)
     {
         ch = ' ';
-    }    
+    }
     for(unsigned char i=0;i<m_font_width;i++)
     {
        // Font array starts at 0, ASCII starts at 32
-       sendData(pgm_read_byte(&m_font[(ch-32)*m_font_width+m_font_offset+i])); 
+       sendData(pgm_read_byte(&m_font[(ch-32)*m_font_width+m_font_offset+i]));
     }
     return 1;
 }
@@ -145,7 +155,7 @@ void ACROBOTIC_SSD1306::putString(const char *string)
     unsigned char i=0;
     while(string[i])
     {
-        putChar(string[i]);     
+        putChar(string[i]);
         i++;
     }
 }
@@ -163,20 +173,20 @@ unsigned char ACROBOTIC_SSD1306::putNumber(long long_num)
   unsigned char i = 0;
   unsigned char f = 0;
 
-  if (long_num < 0) 
+  if (long_num < 0)
   {
     f=1;
     putChar('-');
     long_num = -long_num;
-  } 
-  else if (long_num == 0) 
+  }
+  else if (long_num == 0)
   {
     f=1;
     putChar('0');
     return f;
-  } 
+  }
 
-  while (long_num > 0) 
+  while (long_num > 0)
   {
     char_buffer[i++] = long_num % 10;
     long_num /= 10;
@@ -208,7 +218,7 @@ unsigned char ACROBOTIC_SSD1306::putFloat(float floatNumber,unsigned char decima
     rounding /= 10.0;
   }
     floatNumber += rounding;
-  
+
   temp = floatNumber;
   f += putNumber(temp);
   if(decimal>0)
@@ -216,8 +226,8 @@ unsigned char ACROBOTIC_SSD1306::putFloat(float floatNumber,unsigned char decima
     putChar('.');
     f +=1;
  }
-  decy = floatNumber-temp;//decimal part, 
-  for(unsigned char i=0;i<decimal;i++)//4 
+  decy = floatNumber-temp;//decimal part,
+  for(unsigned char i=0;i<decimal;i++)//4
   {
     decy *=10;// for the next decimal
     temp = decy;//get the decimal
@@ -245,7 +255,7 @@ unsigned char ACROBOTIC_SSD1306::putFloat(float floatNumber)
     rounding /= 10.0;
   }
     floatNumber += rounding;
-  
+
   temp = floatNumber;
   f += putNumber(temp);
   if(decimal>0)
@@ -253,8 +263,8 @@ unsigned char ACROBOTIC_SSD1306::putFloat(float floatNumber)
     putChar('.');
     f +=1;
  }
-  decy = floatNumber-temp;//decimal part, 
-  for(unsigned char i=0;i<decimal;i++)//4 
+  decy = floatNumber-temp;//decimal part,
+  for(unsigned char i=0;i<decimal;i++)//4
   {
     decy *=10;// for the next decimal
     temp = decy;//get the decimal
@@ -270,7 +280,7 @@ void ACROBOTIC_SSD1306::drawBitmap(unsigned char *bitmaparray,int bytes)
   char localAddressMode = addressingMode;
   if(addressingMode != HORIZONTAL_MODE)
   {
-      //Bitmap is drawn in horizontal mode     
+      //Bitmap is drawn in horizontal mode
       setHorizontalMode();
   }
 
@@ -282,9 +292,9 @@ void ACROBOTIC_SSD1306::drawBitmap(unsigned char *bitmaparray,int bytes)
   if(localAddressMode == PAGE_MODE)
   {
      //If pageMode was used earlier, restore it.
-     setPageMode(); 
+     setPageMode();
   }
-  
+
 }
 
 void ACROBOTIC_SSD1306::setHorizontalScrollProperties(bool direction,unsigned char startPage, unsigned char endPage, unsigned char scrollSpeed)
@@ -296,7 +306,7 @@ void ACROBOTIC_SSD1306::setHorizontalScrollProperties(bool direction,unsigned ch
    }
    else
    {
-        //Scroll left  
+        //Scroll left
         sendCommand(0x27);
 
    }
