@@ -20,11 +20,12 @@
 
 #include "ACROBOTIC_SSD1306.h"
 
-void ACROBOTIC_SSD1306::init(void)
+void ACROBOTIC_SSD1306::init(TwoWire& wire)
 {
+  m_wire = &wire;
   displayOff();                 //display off
   sendCommand(0xA6);            //Set Normal Display (default)
-  displayOff();                 //DISPLAYOFF
+  displayOff();                 //display off
   sendCommand(0xD5);            //SETDISPLAYCLOCKDIV
   sendCommand(0x80);            // the suggested ratio 0x80
   sendCommand(0xA8);            //SSD1306_SETMULTIPLEX
@@ -74,10 +75,10 @@ void ACROBOTIC_SSD1306::setFont(const uint8_t* font, bool inverse)
 
 void ACROBOTIC_SSD1306::sendCommand(unsigned char command)
 {
-  Wire.beginTransmission(SSD1306_Address);    // begin I2C communication
-  Wire.write(SSD1306_Command_Mode);           // Set OLED Command mode
-  Wire.write(command);
-  Wire.endTransmission();                       // End I2C communication
+  m_wire->beginTransmission(SSD1306_Address);    // begin I2C communication
+  m_wire->write(SSD1306_Command_Mode);           // Set OLED Command mode
+  m_wire->write(command);
+  m_wire->endTransmission();                       // End I2C communication
 }
 
 void ACROBOTIC_SSD1306::setBrightness(unsigned char Brightness)
@@ -127,10 +128,10 @@ void ACROBOTIC_SSD1306::clearDisplay()
 
 void ACROBOTIC_SSD1306::sendData(unsigned char Data)
 {
-     Wire.beginTransmission(SSD1306_Address); // begin I2C transmission
-     Wire.write(SSD1306_Data_Mode);            // data mode
-     Wire.write(m_inverse?~Data:Data);
-     Wire.endTransmission();                    // stop I2C transmission
+     m_wire->beginTransmission(SSD1306_Address); // begin I2C transmission
+     m_wire->write(SSD1306_Data_Mode);            // data mode
+     m_wire->write(m_inverse?~Data:Data);
+     m_wire->endTransmission();                    // stop I2C transmission
 }
 
 bool ACROBOTIC_SSD1306::putChar(unsigned char ch)
